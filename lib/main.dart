@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'login_page.dart';
+import 'sign_up_page.dart';
+import 'add_loisir_page.dart';
 
 void main() {
   runApp(LoisirsApp());
@@ -10,6 +12,7 @@ class LoisirsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Loisirs App',
       theme: ThemeData(
         primaryColor: Color(0xFF2F70AF),
@@ -27,7 +30,8 @@ class LoisirsApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/home': (context) => HomePage(),
-        // Ajoutez d'autres routes ici si nécessaire
+        '/signup': (context) => SignUpPage(),
+        '/add': (context) => AddLoisirPage(),
       },
     );
   }

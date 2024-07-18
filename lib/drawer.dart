@@ -33,6 +33,20 @@ class AppDrawer extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/');
             },
           ),
+          ListTile(
+            leading: Icon(Icons.app_registration),
+            title: Text('Inscription'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/signup');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add),
+            title: Text('Ajouter un loisir'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/add');
+            },
+          ),
         ],
       ),
     );

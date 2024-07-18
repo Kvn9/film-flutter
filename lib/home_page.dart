@@ -1,48 +1,132 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
 import 'drawer.dart';
+import 'add_loisir_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<Map<String, String>> films = [
     {
       'title': 'Batman',
       'image': 'images/batman.jpg',
       'description': "Le Batman, est un film américain d'action...",
-      'review': '4.5/5'
+      'review': '4.5/5',
+      'date': '2022'
     },
     {
       'title': 'Petit Prince',
       'image': 'images/petit_prince.jpg',
-      'description': 'Le Petit Prince est une œuvre de langue française...',
-      'review': '4.0/5'
+      'description': 'Le Petit Prince est une œuvre française...',
+      'review': '4.0/5',
+      'date': '1943'
     },
     {
       'title': 'Inception',
       'image': 'images/inception.jpg',
-      'description':
-          "Dom Cobb est un voleur expérimenté dans l'art périlleux de l'extraction...",
-      'review': '3.5/5'
+      'description': "Dom Cobb est un voleur expérimenté dans l'art...",
+      'review': '3.5/5',
+      'date': '2010',
     },
     {
       'title': 'Spider Man',
       'image': 'images/spider-man.jpg',
-      'description':
-          'Spider-Man est une série de films américains de super-héros...',
-      'review': '4.2/5'
+      'description': 'Spider-Man est une série de films...',
+      'review': '4.2/5',
+      'date': '2012 ',
     },
     {
       'title': 'Avengers',
       'image': 'images/avengers.jpg',
-      'description': "Quand un ennemi inattendu fait surface pour menacer...",
-      'review': '3.8/5'
+      'description': "Quand un ennemi inattendu...",
+      'review': '3.8/5',
+      'date': '2022',
     },
   ];
+
+  List<Map<String, String>> filteredFilms = [];
+  String _searchQuery = '';
+  bool _isSortedByAlphabet = false;
+  bool _isSortedByDate = false;
+
+  @override
+  void initState() {
+    super.initState();
+    filteredFilms = films;
+  }
+
+  void _filterFilms(String query) {
+    setState(() {
+      _searchQuery = query.toLowerCase();
+      filteredFilms = films.where((film) {
+        return film['title']!.toLowerCase().contains(_searchQuery);
+      }).toList();
+    });
+  }
+
+  void _toggleSortAlphabetically() {
+    setState(() {
+      if (_isSortedByAlphabet) {
+        filteredFilms = films.where((film) {
+          return film['title']!.toLowerCase().contains(_searchQuery);
+        }).toList();
+      } else {
+        filteredFilms.sort((a, b) => a['title']!.compareTo(b['title']!));
+      }
+      _isSortedByAlphabet = !_isSortedByAlphabet;
+      _isSortedByDate = false;
+    });
+  }
+
+  void _toggleSortByDate() {
+    setState(() {
+      if (_isSortedByDate) {
+        filteredFilms = films.where((film) {
+          return film['title']!.toLowerCase().contains(_searchQuery);
+        }).toList();
+      } else {
+        filteredFilms.sort((a, b) => a['date']!.compareTo(b['date']!));
+      }
+      _isSortedByDate = !_isSortedByDate;
+      _isSortedByAlphabet = false;
+    });
+  }
+
+  void _addNewLoisir(Map<String, String> newLoisir) {
+    setState(() {
+      films.add(newLoisir);
+      _filterFilms(_searchQuery);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Loisirs'),
+        title: TextField(
+          decoration: InputDecoration(
+            hintText: 'Rechercher...',
+            hintStyle: TextStyle(color: Colors.white60),
+            border: InputBorder.none,
+          ),
+          style: TextStyle(color: Colors.white),
+          onChanged: _filterFilms,
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.sort_by_alpha),
+            onPressed: _toggleSortAlphabetically,
+            color: _isSortedByAlphabet ? Colors.yellow : Colors.white,
+          ),
+          IconButton(
+            icon: Icon(Icons.date_range),
+            onPressed: _toggleSortByDate,
+            color: _isSortedByDate ? Colors.yellow : Colors.white,
+          ),
+        ],
       ),
       drawer: AppDrawer(),
       body: Padding(
@@ -60,14 +144,15 @@ class HomePage extends StatelessWidget {
                   mainAxisSpacing: 10.0,
                   childAspectRatio: 0.7,
                 ),
-                itemCount: films.length,
+                itemCount: filteredFilms.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailPage(film: films[index]),
+                          builder: (context) =>
+                              DetailPage(film: filteredFilms[index]),
                         ),
                       );
                     },
@@ -77,9 +162,9 @@ class HomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Image.asset(
-                            films[index]['image']!,
+                            filteredFilms[index]['image']!,
                             fit: BoxFit.cover,
-                            height: 120,
+                            height: 130,
                             width: double.infinity,
                           ),
                           Padding(
@@ -88,18 +173,23 @@ class HomePage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  films[index]['title']!,
+                                  filteredFilms[index]['title']!,
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  films[index]['description']!,
+                                  filteredFilms[index]['description']!,
                                   style: TextStyle(color: Colors.white70),
                                 ),
-                                SizedBox(height: 5),
+                                SizedBox(height: 2),
                                 Text(
-                                  'Avis: ${films[index]['review']}',
+                                  'Avis: ${filteredFilms[index]['review']}',
                                   style: TextStyle(color: Colors.yellowAccent),
+                                ),
+                                SizedBox(height: 2),
+                                Text(
+                                  'Date: ${filteredFilms[index]['date']}',
+                                  style: TextStyle(color: Colors.white30),
                                 ),
                               ],
                             ),
@@ -113,6 +203,20 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final newLoisir = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddLoisirPage(),
+            ),
+          );
+          if (newLoisir != null) {
+            _addNewLoisir(newLoisir);
+          }
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

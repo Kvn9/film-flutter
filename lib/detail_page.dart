@@ -27,7 +27,7 @@ class DetailPage extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               film['title']!,
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             SizedBox(height: 10),
             Text(
@@ -37,6 +37,11 @@ class DetailPage extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               'Avis: ${film['review']}',
+              style: TextStyle(color: Colors.yellowAccent, fontSize: 16),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Date: ${film['date']}',
               style: TextStyle(color: Colors.yellowAccent, fontSize: 16),
             ),
           ],
