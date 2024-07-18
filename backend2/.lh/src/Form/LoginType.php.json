@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/Form/LoginType.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1721225116992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1721225135913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,28 +1,28 @@\n <?php\n \n+// src/Form/LoginType.php\n+\n namespace App\\Form;\n \n-use App\\Entity\\User;\n use Symfony\\Component\\Form\\AbstractType;\n use Symfony\\Component\\Form\\FormBuilderInterface;\n+use Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType;\n+use Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType;\n+use Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType;\n use Symfony\\Component\\OptionsResolver\\OptionsResolver;\n \n class LoginType extends AbstractType\n {\n-    public function buildForm(FormBuilderInterface $builder, array $options): void\n+    public function buildForm(FormBuilderInterface $builder, array $options)\n     {\n         $builder\n-            ->add('email')\n-            ->add('roles')\n-            ->add('password')\n-          \n+            ->add('email', EmailType::class)\n+            ->add('password', PasswordType::class)\n         ;\n     }\n \n-    public function configureOptions(OptionsResolver $resolver): void\n+    public function configureOptions(OptionsResolver $resolver)\n     {\n-        $resolver->setDefaults([\n-            'data_class' => User::class,\n-        ]);\n+        $resolver->setDefaults([]);\n     }\n }\n"
+                }
+            ],
+            "date": 1721225116992,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Form;\n\nuse App\\Entity\\User;\nuse Symfony\\Component\\Form\\AbstractType;\nuse Symfony\\Component\\Form\\FormBuilderInterface;\nuse Symfony\\Component\\OptionsResolver\\OptionsResolver;\n\nclass LoginType extends AbstractType\n{\n    public function buildForm(FormBuilderInterface $builder, array $options): void\n    {\n        $builder\n            ->add('email')\n            ->add('roles')\n            ->add('password')\n          \n        ;\n    }\n\n    public function configureOptions(OptionsResolver $resolver): void\n    {\n        $resolver->setDefaults([\n            'data_class' => User::class,\n        ]);\n    }\n}\n"
+        }
+    ]
+}

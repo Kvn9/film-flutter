@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Loisir index{% endblock %}
+
+{% block body %}
+    <h1>Loisir index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Notation</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for loisir in loisirs %}
+            <tr>
+                <td>{{ loisir.id }}</td>
+                <td>{{ loisir.titre }}</td>
+                <td>{{ loisir.description }}</td>
+                <td>{{ loisir.notation }}</td>
+                <td>{{ loisir.createdAt ? loisir.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_loisir_show', {'id': loisir.id}) }}">show</a>
+                    <a href="{{ path('app_loisir_edit', {'id': loisir.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_loisir_new') }}">Create new</a>
+{% endblock %}
