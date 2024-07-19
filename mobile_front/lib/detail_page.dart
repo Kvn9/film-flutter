@@ -1,8 +1,112 @@
+// import 'package:flutter/material.dart';
+// import 'drawer.dart';
+
+// class DetailPage extends StatelessWidget {
+//   final Map<String, String> film;
+
+//   DetailPage({required this.film});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(film['title']!),
+//       ),
+//       drawer: AppDrawer(),
+//       body: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Image.asset(
+//               film['image']!,
+//               fit: BoxFit.cover,
+//               width: double.infinity,
+//               height: 200,
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               film['title']!,
+//               style: Theme.of(context).textTheme.headlineLarge,
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               film['description']!,
+//               style: Theme.of(context).textTheme.bodyLarge,
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               'Avis: ${film['review']}',
+//               style: TextStyle(color: Colors.yellowAccent, fontSize: 16),
+//             ),
+//             SizedBox(height: 10),
+//             Text(
+//               'Date: ${film['date']}',
+//               style: TextStyle(color: Colors.yellowAccent, fontSize: 16),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// import 'package:flutter/material.dart';
+
+// class DetailPage extends StatelessWidget {
+//   final Map<String, dynamic> film;
+
+//   DetailPage({required this.film});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(film['title']),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Image.asset(
+//               film['image'],
+//               fit: BoxFit.cover,
+//               width: double.infinity,
+//               height: 200,
+//             ),
+//             SizedBox(height: 16),
+//             Text(
+//               film['title'],
+//               style: Theme.of(context).textTheme.headlineMedium,
+//             ),
+//             SizedBox(height: 8),
+//             Text(
+//               'Description: ${film['description']}',
+//               style: Theme.of(context).textTheme.bodyLarge,
+//             ),
+//             SizedBox(height: 8),
+//             Text(
+//               'Avis: ${film['notation']}',
+//               style: TextStyle(color: Colors.yellowAccent, fontSize: 16),
+//             ),
+//             SizedBox(height: 8),
+//             Text(
+//               'Date: ${film['created_at']}',
+//               style: TextStyle(color: Colors.black, fontSize: 16),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
-import 'drawer.dart';
+import 'models/loisir.dart';
 
 class DetailPage extends StatelessWidget {
-  final Map<String, String> film;
+  final Loisir film;
 
   DetailPage({required this.film});
 
@@ -10,39 +114,38 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(film['title']!),
+        title: Text(film.title),
       ),
-      drawer: AppDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              film['image']!,
+            Image.network(
+              film.image,
               fit: BoxFit.cover,
               width: double.infinity,
               height: 200,
             ),
             SizedBox(height: 10),
             Text(
-              film['title']!,
-              style: Theme.of(context).textTheme.headlineLarge,
+              film.title,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             SizedBox(height: 10),
             Text(
-              film['description']!,
+              film.description,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             SizedBox(height: 10),
             Text(
-              'Avis: ${film['review']}',
+              'Avis: ${film.review}',
               style: TextStyle(color: Colors.yellowAccent, fontSize: 16),
             ),
             SizedBox(height: 10),
             Text(
-              'Date: ${film['date']}',
-              style: TextStyle(color: Colors.yellowAccent, fontSize: 16),
+              'Date: ${film.date}',
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ],
         ),

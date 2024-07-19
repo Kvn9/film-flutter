@@ -68,6 +68,9 @@ flutter:
     - images/inception.jpg
     - images/avengers.jpg
     - images/spider-man.jpg
+    - images/social1.png
+    - images/freetimelogo.png
+    - images/welcome.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

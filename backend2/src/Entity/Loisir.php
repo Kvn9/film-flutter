@@ -26,11 +26,11 @@ class Loisir
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'loisirs')]
-    private ?Category $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'loisirs')]
-    private ?User $user = null;
+
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -85,26 +85,14 @@ class Loisir
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getImage(): ?string
     {
-        return $this->category;
+        return $this->image;
     }
 
-    public function setCategory(?Category $category): static
+    public function setImage(string $image): static
     {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
+        $this->image = $image;
 
         return $this;
     }

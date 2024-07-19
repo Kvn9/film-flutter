@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'drawer.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AddLoisirPage extends StatefulWidget {
   @override
@@ -7,38 +8,52 @@ class AddLoisirPage extends StatefulWidget {
 }
 
 class _AddLoisirPageState extends State<AddLoisirPage> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _reviewController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _imageController = TextEditingController();
 
-  void _addLoisir() {
-    if (_titleController.text.isNotEmpty &&
-        _descriptionController.text.isNotEmpty &&
-        _reviewController.text.isNotEmpty &&
-        _dateController.text.isNotEmpty) {
-      final newLoisir = {
-        'title': _titleController.text,
-        'image': 'assets/images/default.jpg', // Image par défaut
-        'description': _descriptionController.text,
-        'review': _reviewController.text,
-        'date': _dateController.text,
-      };
-      Navigator.pop(context, newLoisir); // Retourner les données à HomePage
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Erreur'),
-          content: Text('Veuillez remplir tous les champs.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
-            ),
-          ],
-        ),
-      );
+  Future<void> _addLoisir() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final response = await http.post(
+          Uri.parse('http://localhost:8000/add-loisir'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode({
+            'titre': _titleController.text,
+            'description': _descriptionController.text,
+            'notation': int.parse(_reviewController.text),
+            'created_at': _dateController.text,
+            'image':
+                _imageController.text.isNotEmpty ? _imageController.text : null,
+          }),
+        );
+
+        if (response.statusCode == 201) {
+          Navigator.pop(context);
+        } else {
+          throw Exception('Failed to add loisir');
+        }
+      } catch (e) {
+        print(e);
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Erreur'),
+            content: Text('Une erreur est survenue. Veuillez réessayer.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
     }
   }
 
@@ -48,77 +63,68 @@ class _AddLoisirPageState extends State<AddLoisirPage> {
       appBar: AppBar(
         title: Text('Ajouter un loisir'),
       ),
-      drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                labelText: 'Titre',
-                labelStyle: TextStyle(color: Colors.white),
-                filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              TextFormField(
+                controller: _titleController,
+                decoration: InputDecoration(labelText: 'Titre'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer un titre';
+                  }
+                  return null;
+                },
               ),
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(
-                labelText: 'Description',
-                labelStyle: TextStyle(color: Colors.white),
-                filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              TextFormField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Description'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer une description';
+                  }
+                  return null;
+                },
               ),
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: _reviewController,
-              decoration: InputDecoration(
-                labelText: 'Avis',
-                labelStyle: TextStyle(color: Colors.white),
-                filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              TextFormField(
+                controller: _reviewController,
+                decoration: InputDecoration(labelText: 'Notation'),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer une notation';
+                  }
+                  if (int.tryParse(value) == null) {
+                    return 'Veuillez entrer un nombre valide';
+                  }
+                  return null;
+                },
               ),
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: _dateController,
-              decoration: InputDecoration(
-                labelText: 'Date',
-                labelStyle: TextStyle(color: Colors.white),
-                filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              TextFormField(
+                controller: _dateController,
+                decoration: InputDecoration(
+                    labelText: 'Date de création (YYYY-MM-DD HH:MM:SS)'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer une date de création';
+                  }
+                  return null;
+                },
               ),
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _addLoisir,
-              child: Text('Ajouter'),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                textStyle: TextStyle(fontSize: 16),
+              TextFormField(
+                controller: _imageController,
+                decoration: InputDecoration(labelText: 'URL de l\'image'),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _addLoisir,
+                child: Text('Ajouter'),
+              ),
+            ],
+          ),
         ),
       ),
     );
