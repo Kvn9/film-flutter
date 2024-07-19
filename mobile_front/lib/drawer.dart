@@ -14,7 +14,7 @@ class AppDrawer extends StatelessWidget {
             child: Text(
               'Menu',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 24,
               ),
             ),
@@ -30,7 +30,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.login),
             title: Text('Connexion'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/login');
             },
           ),
           ListTile(

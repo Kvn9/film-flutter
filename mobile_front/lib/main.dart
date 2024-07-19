@@ -33,6 +33,7 @@ class LoisirsApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => WelcomePage(),
+        '/login': (context) => LoginPage(),
         '/home': (context) => HomePage(),
         '/signup': (context) => SignUpPage(),
         '/add': (context) => AddLoisirPage(),

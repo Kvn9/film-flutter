@@ -54,35 +54,35 @@ class _SignUpPageState extends State<SignUpPage> {
               controller: _usernameController,
               decoration: InputDecoration(
                 labelText: 'Nom d\'utilisateur',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 filled: true,
                 fillColor: Colors.white12,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 10),
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 filled: true,
                 fillColor: Colors.white12,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 10),
             TextField(
               controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 filled: true,
                 fillColor: Colors.white12,
                 border: OutlineInputBorder(
@@ -90,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               obscureText: true,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 20),
             ElevatedButton(

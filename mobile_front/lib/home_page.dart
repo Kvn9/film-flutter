@@ -109,22 +109,22 @@ class _HomePageState extends State<HomePage> {
         title: TextField(
           decoration: InputDecoration(
             hintText: 'Rechercher...',
-            hintStyle: TextStyle(color: Colors.white60),
+            hintStyle: TextStyle(color: Colors.black),
             border: InputBorder.none,
           ),
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
           onChanged: _filterFilms,
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.sort_by_alpha),
             onPressed: _toggleSortAlphabetically,
-            color: _isSortedByAlphabet ? Colors.yellow : Colors.white,
+            color: _isSortedByAlphabet ? Colors.yellow : Colors.black,
           ),
           IconButton(
             icon: Icon(Icons.date_range),
             onPressed: _toggleSortByDate,
-            color: _isSortedByDate ? Colors.yellow : Colors.white,
+            color: _isSortedByDate ? Colors.yellow : Colors.black,
           ),
         ],
       ),
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: 5),
                                 Text(
                                   filteredFilms[index]['description']!,
-                                  style: TextStyle(color: Colors.white70),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                                 SizedBox(height: 2),
                                 Text(
@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: 2),
                                 Text(
                                   'Date: ${filteredFilms[index]['date']}',
-                                  style: TextStyle(color: Colors.white30),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                               ],
                             ),

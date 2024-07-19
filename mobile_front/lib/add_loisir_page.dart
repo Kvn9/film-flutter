@@ -58,56 +58,56 @@ class _AddLoisirPageState extends State<AddLoisirPage> {
               controller: _titleController,
               decoration: InputDecoration(
                 labelText: 'Titre',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 filled: true,
-                fillColor: Colors.white12,
+                fillColor: Colors.black12,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 10),
             TextField(
               controller: _descriptionController,
               decoration: InputDecoration(
                 labelText: 'Description',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 filled: true,
-                fillColor: Colors.white12,
+                fillColor: Colors.black12,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 10),
             TextField(
               controller: _reviewController,
               decoration: InputDecoration(
                 labelText: 'Avis',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 filled: true,
-                fillColor: Colors.white12,
+                fillColor: Colors.black12,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 10),
             TextField(
               controller: _dateController,
               decoration: InputDecoration(
                 labelText: 'Date',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 filled: true,
-                fillColor: Colors.white12,
+                fillColor: Colors.black12,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 20),
             ElevatedButton(
